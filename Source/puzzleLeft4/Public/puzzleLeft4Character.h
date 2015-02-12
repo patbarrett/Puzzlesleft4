@@ -1,6 +1,8 @@
-// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+
 #pragma once
+
 #include "GameFramework/Character.h"
+#include "puzzleLeft4Projectile.h"
 #include "puzzleLeft4Character.generated.h"
 
 UCLASS(config=Game)
@@ -12,9 +14,6 @@ class ApuzzleLeft4Character : public ACharacter
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	class USkeletalMeshComponent* Mesh1P;
 
-	/** First person camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* FirstPersonCameraComponent;
 public:
 	ApuzzleLeft4Character(const FObjectInitializer& ObjectInitializer);
 
@@ -26,34 +25,30 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
-	/** Gun muzzle's offset from the characters location */
+	//Gun Offset based on the Character's location
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	FVector GunOffset;
 
-	/** Projectile class to spawn */
-	UPROPERTY(EditDefaultsOnly, Category=Projectile)
-	TSubclassOf<class ApuzzleLeft4Projectile> ProjectileClass;
-
-	/** Sound to play each time we fire */
+	//Audio that plays when Character fires
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	class USoundBase* FireSound;
 
-	/** AnimMontage to play each time we fire */
+	//Animation that plays when Character fires
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class UAnimMontage* FireAnimation;
 
 protected:
 
-	/** Handler for a touch input beginning. */
-	void TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location);
+	//Fire a Projectile
+	void OnFireP();
 
-	/** Fires a projectile. */
-	void OnFire();
+	//Fire a Line Trace/Raycast
+	void OnFireT();
 
-	/** Handles moving forward/backward */
+	//Handles Forward & Backward Movement
 	void MoveForward(float Val);
 
-	/** Handles stafing movement, left and right */
+	//Handles Left * Right Movement
 	void MoveRight(float Val);
 
 	/**
@@ -72,6 +67,18 @@ protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 	// End of APawn interface
+
+	//Character Camera Component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	UCameraComponent* FirstPersonCameraComponent;
+
+	//Character Capsule Collider Component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
+	UCapsuleComponent* ColliderComponent;
+	
+	//Character Projectile Component
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Projectile)
+	TSubclassOf<class ApuzzleLeft4Projectile> ProjectileClass;
 
 public:
 	/** Returns Mesh1P subobject **/
