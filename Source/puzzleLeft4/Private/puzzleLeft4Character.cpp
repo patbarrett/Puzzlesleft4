@@ -54,10 +54,10 @@ void ApuzzleLeft4Character::SetupPlayerInputComponent(class UInputComponent* Inp
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 	
 	//Fire Projectile
-	InputComponent->BindAction("Fire", IE_Pressed, this, &ApuzzleLeft4Character::OnFireT);
+	//InputComponent->BindAction("Fire", IE_Pressed, this, &ApuzzleLeft4Character::OnFireP);
 
 	//Fire Line Trace/Ray Cast
-	
+	InputComponent->BindAction("Fire", IE_Pressed, this, &ApuzzleLeft4Character::OnFireT);
 
 	//Horizontal & Vertical Movement
 	InputComponent->BindAxis("MoveForward", this, &ApuzzleLeft4Character::MoveForward);
@@ -114,9 +114,10 @@ void ApuzzleLeft4Character::OnFireT()
 
 	FCollisionQueryParams QueryParams; // General Raycast
 	QueryParams.TraceTag = MyTraceTag;
+	//QueryParams.AddIgnoredActor(this);
 
 	FCollisionObjectQueryParams ObjectQueryParams; // Collision Parameters
-	ObjectQueryParams.AddObjectTypesToQuery(ECollisionChannel::ECC_WorldStatic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECollisionChannel::ECC_Pawn);
 
 	GetWorld()->DebugDrawTraceTag = MyTraceTag;
 	
@@ -128,6 +129,10 @@ void ApuzzleLeft4Character::OnFireT()
 		ObjectQueryParams))
 	{
 		UE_LOG(LogTemp, Display, TEXT("Line Trace Has Hit"));
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+		//HitResult.Actor->Destroy(false, true);
+		HitResult.Component->AddForce(FVector(0.0f, 100.0f, 0.0f));
+		HitResult.Actor->
 		//UE_LOG(LogTemp, Display, TEXT(HitResult.
 
 	}
