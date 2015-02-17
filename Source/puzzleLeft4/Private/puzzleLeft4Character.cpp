@@ -9,6 +9,8 @@
 //////////////////////////////////////////////////////////////////////////
 // ApuzzleLeft4Character
 
+const FName MyTraceTag("MyTraceTag");
+
 ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
@@ -36,6 +38,8 @@ ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectIni
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
 
+	Health = 2.0f;
+
 	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P are set in the
 	// derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
@@ -51,22 +55,26 @@ void ApuzzleLeft4Character::SetupPlayerInputComponent(class UInputComponent* Inp
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 	
-	InputComponent->BindAction("Fire", IE_Pressed, this, &ApuzzleLeft4Character::OnFire);
-	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &ApuzzleLeft4Character::TouchStarted);
+	//Fire Projectile
+	//InputComponent->BindAction("Fire", IE_Pressed, this, &ApuzzleLeft4Character::OnFireP);
 
+	//Fire Line Trace/Ray Cast
+	InputComponent->BindAction("Fire", IE_Pressed, this, &ApuzzleLeft4Character::OnFireT);
+
+	//Horizontal & Vertical Movement
 	InputComponent->BindAxis("MoveForward", this, &ApuzzleLeft4Character::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &ApuzzleLeft4Character::MoveRight);
 	
-	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
-	// "turn" handles devices that provide an absolute delta, such as a mouse.
-	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
+	//Mouse OR anything that provides an absolute delta
 	InputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
-	InputComponent->BindAxis("TurnRate", this, &ApuzzleLeft4Character::TurnAtRate);
 	InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+
+	//Controller OR anything with a analog joystick
+	InputComponent->BindAxis("TurnRate", this, &ApuzzleLeft4Character::TurnAtRate);
 	InputComponent->BindAxis("LookUpRate", this, &ApuzzleLeft4Character::LookUpAtRate);
 }
 
-void ApuzzleLeft4Character::OnFire()
+void ApuzzleLeft4Character::OnFireP()
 {
 	// try and fire a projectile
 	if (ProjectileClass != NULL)
@@ -102,13 +110,52 @@ void ApuzzleLeft4Character::OnFire()
 
 }
 
-void ApuzzleLeft4Character::TouchStarted(const ETouchIndex::Type FingerIndex, const FVector Location)
+void ApuzzleLeft4Character::OnFireT()
 {
-	// only fire for first finger down
-	if (FingerIndex == 0)
+	FHitResult HitResult; //Hit Data
+	FDamageEvent AttackDamageEvent;
+
+	//this->AddComponent(
+
+	FCollisionQueryParams QueryParams; // General Raycast
+	QueryParams.TraceTag = MyTraceTag;
+	QueryParams.AddIgnoredActor(this);
+
+	FCollisionObjectQueryParams ObjectQueryParams; // Collision Parameters
+	ObjectQueryParams.AddObjectTypesToQuery(ECollisionChannel::ECC_WorldStatic);
+
+	GetWorld()->DebugDrawTraceTag = MyTraceTag;
+	
+	if(GetWorld()->LineTraceSingle(
+		HitResult,
+		FirstPersonCameraComponent->GetComponentLocation(),
+		FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * 800,
+		QueryParams,
+		ObjectQueryParams))
 	{
-		OnFire();
+		//TakeDamage(1.0f, FPointDamageEvent, this->Controller, this);
+
+		//this->TakeDamage(1.0f, AttackDamageEvent, GetController(), this);
+
+		//UE_LOG(LogTemp, Display, TEXT("Line Trace Has Hit"));
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+		if (Health <= 0)
+		{
+			HitResult.Actor->TakeDamage(1.0f, AttackDamageEvent, GetController(), this);
+			HitResult.Actor->Destroy(false, true);
+		}
+		//HitResult.Component->AddForce(FVector(0.0f, 100.0f, 0.0f));
+		//HitResult.Actor->
+		//UE_LOG(LogTemp, Display, TEXT(HitResult.
+
 	}
+	else
+	{
+		UE_LOG(LogTemp, Display, TEXT("Line Trace Has Not Hit"));
+	}
+
+	UE_LOG(LogTemp, Display, TEXT("Log Works"));
+
 }
 
 void ApuzzleLeft4Character::MoveForward(float Value)
