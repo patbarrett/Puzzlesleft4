@@ -38,7 +38,7 @@ ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectIni
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
 
-	Health = 2.0f;
+	Ammo = 5;
 
 	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P are set in the
 	// derived blueprint asset named MyCharacter (to avoid direct content references in C++)
@@ -54,6 +54,8 @@ void ApuzzleLeft4Character::SetupPlayerInputComponent(class UInputComponent* Inp
 
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+
+	InputComponent->BindAction("Reload", IE_Pressed, this, &ApuzzleLeft4Character::Reload);
 	
 	//Fire Projectile
 	//InputComponent->BindAction("Fire", IE_Pressed, this, &ApuzzleLeft4Character::OnFireP);
@@ -115,47 +117,46 @@ void ApuzzleLeft4Character::OnFireT()
 	FHitResult HitResult; //Hit Data
 	FDamageEvent AttackDamageEvent;
 
-	//this->AddComponent(
-
 	FCollisionQueryParams QueryParams; // General Raycast
 	QueryParams.TraceTag = MyTraceTag;
 	QueryParams.AddIgnoredActor(this);
 
 	FCollisionObjectQueryParams ObjectQueryParams; // Collision Parameters
-	ObjectQueryParams.AddObjectTypesToQuery(ECollisionChannel::ECC_WorldStatic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECollisionChannel::ECC_Pawn);
 
 	GetWorld()->DebugDrawTraceTag = MyTraceTag;
 	
-	if(GetWorld()->LineTraceSingle(
-		HitResult,
-		FirstPersonCameraComponent->GetComponentLocation(),
-		FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * 800,
-		QueryParams,
-		ObjectQueryParams))
+
+	if (Ammo > 0)
 	{
-		//TakeDamage(1.0f, FPointDamageEvent, this->Controller, this);
-
-		//this->TakeDamage(1.0f, AttackDamageEvent, GetController(), this);
-
-		//UE_LOG(LogTemp, Display, TEXT("Line Trace Has Hit"));
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-		if (Health <= 0)
+		Ammo -= 1;
+
+		if (GetWorld()->LineTraceSingle(
+			HitResult,
+			FirstPersonCameraComponent->GetComponentLocation(),
+			FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * 800,
+			QueryParams,
+			ObjectQueryParams))
 		{
-			HitResult.Actor->TakeDamage(1.0f, AttackDamageEvent, GetController(), this);
-			HitResult.Actor->Destroy(false, true);
+			HitResult.GetActor()->TakeDamage(1.0f, AttackDamageEvent, GetController(), this);
+
+			if (HitResult.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()))
+			{
+				UHealthComponent* Target = Cast<UHealthComponent>(HitResult.GetActor());
+				Target->InflictDamage(1.0f);
+			}
 		}
-		//HitResult.Component->AddForce(FVector(0.0f, 100.0f, 0.0f));
-		//HitResult.Actor->
-		//UE_LOG(LogTemp, Display, TEXT(HitResult.
-
+		else
+		{
+			UE_LOG(LogTemp, Display, TEXT("Line Trace Has Not Hit"));
+		}
 	}
-	else
-	{
-		UE_LOG(LogTemp, Display, TEXT("Line Trace Has Not Hit"));
-	}
+}
 
-	UE_LOG(LogTemp, Display, TEXT("Log Works"));
-
+void ApuzzleLeft4Character::Reload()
+{
+	Ammo = 5;
 }
 
 void ApuzzleLeft4Character::MoveForward(float Value)
