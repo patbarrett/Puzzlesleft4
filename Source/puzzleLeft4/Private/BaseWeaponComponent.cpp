@@ -34,7 +34,17 @@ void UBaseWeaponComponent::TickComponent( float DeltaTime, ELevelTick TickType, 
 	// ...
 }
 
-bool UBaseWeaponComponent::CastRay(FVector Origin, FVector Direction)
+/*
+if (GetWorld()->LineTraceSingle(
+HitResult,
+FirstPersonCameraComponent->GetComponentLocation(),
+FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * 800,
+QueryParams,
+ObjectQueryParams))
+{
+*/
+
+bool UBaseWeaponComponent::CastRay(UCameraComponent* MainCam)
 {
 	FCollisionQueryParams QueryParams; // General Raycast
 	//QueryParams.TraceTag = MyTraceTag;
@@ -46,9 +56,9 @@ bool UBaseWeaponComponent::CastRay(FVector Origin, FVector Direction)
 	//GetWorld()->DebugDrawTraceTag = MyTraceTag;
 
 	if (GetWorld()->LineTraceSingle(
-		Target,
-		Origin,
-		Origin + Direction * WeaponRange,
+		HitTarget,
+		MainCam->GetComponentLocation(),
+		MainCam->GetComponentLocation() + MainCam->GetForwardVector() * WeaponRange,
 		QueryParams,
 		ObjectQueryParams))
 	{
@@ -60,3 +70,51 @@ bool UBaseWeaponComponent::CastRay(FVector Origin, FVector Direction)
 	}
 }
 
+bool UBaseWeaponComponent::UpdateAmmo()
+{
+	if (CurrentAmmo - AmmoCost >= 0)
+	{
+		CurrentAmmo -= AmmoCost;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void UBaseWeaponComponent::Reload()
+{
+	if (CurrentReserveAmmo > MaxCurrent && CurrentAmmo != MaxCurrent)
+	{
+		CurrentReserveAmmo -= MaxCurrent - CurrentAmmo;
+		CurrentAmmo = MaxCurrent;
+		//Play Reload Sound
+	}
+	else if (CurrentReserveAmmo <= MaxCurrent && CurrentAmmo != MaxCurrent)
+	{
+		CurrentAmmo = CurrentReserveAmmo;
+		CurrentReserveAmmo = 0;
+		//Play Reload Sound
+	}
+	else
+	{
+		//Play Cannot Reload Sound
+	}
+}
+
+void UBaseWeaponComponent::UpdateIsShootable()
+{
+	if (!isShootable)
+	{
+		if (TimePassed >= FireRate)
+		{
+			isShootable = true;
+			TimePassed = 0.0f;
+		}
+		else
+		{
+			TimePassed += World->GetDeltaSeconds();
+		}
+	}
+}

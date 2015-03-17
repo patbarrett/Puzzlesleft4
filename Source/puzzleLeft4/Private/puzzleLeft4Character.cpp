@@ -5,15 +5,17 @@
 #include "puzzleLeft4Projectile.h"
 #include "Animation/AnimInstance.h"
 
-
-//////////////////////////////////////////////////////////////////////////
-// ApuzzleLeft4Character
+//////////////////////////
+// ApuzzleLeft4Character//
+//////////////////////////
 
 const FName MyTraceTag("MyTraceTag");
 
 ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
+	RifleGun = Cast<URifleWeaponComponent>(this->GetComponentByClass(URifleWeaponComponent::StaticClass()));
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -38,8 +40,6 @@ ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectIni
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
 
-	Ammo = 5;
-
 	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P are set in the
 	// derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
@@ -55,7 +55,7 @@ void ApuzzleLeft4Character::SetupPlayerInputComponent(class UInputComponent* Inp
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
-	InputComponent->BindAction("Reload", IE_Pressed, this, &ApuzzleLeft4Character::Reload);
+	//InputComponent->BindAction("Reload", IE_Pressed, this, &ApuzzleLeft4Character::Reload);
 	
 	//Fire Projectile
 	//InputComponent->BindAction("Fire", IE_Pressed, this, &ApuzzleLeft4Character::OnFireP);
@@ -109,11 +109,19 @@ void ApuzzleLeft4Character::OnFireP()
 			AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
 	}
-
 }
 
 void ApuzzleLeft4Character::OnFireT()
 {
+	//if (RifleGun->UpdateAmmo())
+	//{
+		//RifleGun->FireWeapon();
+	//}
+	//else
+	//{
+		//RifleGun->Reload();
+	//}
+
 	FHitResult HitResult; //Hit Data
 	FDamageEvent AttackDamageEvent;
 
@@ -126,39 +134,27 @@ void ApuzzleLeft4Character::OnFireT()
 
 	GetWorld()->DebugDrawTraceTag = MyTraceTag;
 	
+	UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 
-	if (Ammo > 0)
+	if (GetWorld()->LineTraceSingle(
+		HitResult,
+		FirstPersonCameraComponent->GetComponentLocation(),
+		FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * 800,
+		QueryParams,
+		ObjectQueryParams))
 	{
-		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-		Ammo -= 1;
+		HitResult.GetActor()->TakeDamage(1.0f, AttackDamageEvent, GetController(), this);
 
-		
-
-		if (GetWorld()->LineTraceSingle(
-			HitResult,
-			FirstPersonCameraComponent->GetComponentLocation(),
-			FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * 800,
-			QueryParams,
-			ObjectQueryParams))
+		if (HitResult.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()))
 		{
-			HitResult.GetActor()->TakeDamage(1.0f, AttackDamageEvent, GetController(), this);
-
-			if (HitResult.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()))
-			{
-				UHealthComponent* Target = Cast<UHealthComponent>(HitResult.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()));
-				Target->InflictDamage(1.0f);
-			}
-		}
-		else
-		{
-			UE_LOG(LogTemp, Display, TEXT("Line Trace Has Not Hit"));
+			UHealthComponent* Target = Cast<UHealthComponent>(HitResult.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()));
+			Target->InflictDamage(1.0f);
 		}
 	}
-}
-
-void ApuzzleLeft4Character::Reload()
-{
-	Ammo = 5;
+	else
+	{
+		UE_LOG(LogTemp, Display, TEXT("Line Trace Has Not Hit"));
+	}
 }
 
 void ApuzzleLeft4Character::MoveForward(float Value)

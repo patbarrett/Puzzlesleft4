@@ -4,7 +4,7 @@
 #include "GameFramework/Character.h"
 #include "puzzleLeft4Projectile.h"
 #include "HealthComponent.h"
-#include "AmmoComponent.h"
+#include "RifleWeaponComponent.h"
 #include "puzzleLeft4Character.generated.h"
 
 UCLASS(config=Game)
@@ -15,6 +15,8 @@ class ApuzzleLeft4Character : public ACharacter
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	class USkeletalMeshComponent* Mesh1P;
+
+	URifleWeaponComponent* RifleGun;
 
 public:
 	ApuzzleLeft4Character(const FObjectInitializer& ObjectInitializer);
@@ -38,11 +40,6 @@ public:
 	//Animation that plays when Character fires
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class UAnimMontage* FireAnimation;
-
-	int Ammo;
-
-	void Reload();
-	//virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
 
 protected:
 

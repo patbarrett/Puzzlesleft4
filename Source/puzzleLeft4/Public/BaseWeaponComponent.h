@@ -6,7 +6,7 @@
 #include "BaseWeaponComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom))
 class PUZZLELEFT4_API UBaseWeaponComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -14,6 +14,7 @@ class PUZZLELEFT4_API UBaseWeaponComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UBaseWeaponComponent();
+	
 
 	// Called when the game starts
 	virtual void InitializeComponent() override;
@@ -35,7 +36,18 @@ public:
 	int MaxCurrent; //Maximum Ammo in Clip/Magazine
 	int MaxReserve; //Maximum Reserve Ammo for Reloading
 
-	FHitResult Target; //Raycast Hit Information
+	FHitResult HitTarget; //Raycast Hit Information
 
-	bool CastRay(FVector Origin, FVector Direction);
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	UCameraComponent* MainCameraComponent;
+
+
+	bool CastRay(UCameraComponent* MainCam);
+	bool UpdateAmmo();
+
+	void Reload();
+
+	virtual void UpdateIsShootable();
+
+	virtual void FireWeapon() PURE_VIRTUAL(UBaseWeaponComponent FireWeapon,);
 };
