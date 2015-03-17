@@ -24,7 +24,7 @@ void UHealthComponent::InitializeComponent()
 	Super::InitializeComponent();
 	
 	// ...
-	
+	Health = 4.0f;
 }
 
 // Called every frame

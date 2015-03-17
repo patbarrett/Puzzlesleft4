@@ -132,6 +132,8 @@ void ApuzzleLeft4Character::OnFireT()
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 		Ammo -= 1;
 
+		
+
 		if (GetWorld()->LineTraceSingle(
 			HitResult,
 			FirstPersonCameraComponent->GetComponentLocation(),
@@ -143,7 +145,7 @@ void ApuzzleLeft4Character::OnFireT()
 
 			if (HitResult.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()))
 			{
-				UHealthComponent* Target = Cast<UHealthComponent>(HitResult.GetActor());
+				UHealthComponent* Target = Cast<UHealthComponent>(HitResult.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()));
 				Target->InflictDamage(1.0f);
 			}
 		}
