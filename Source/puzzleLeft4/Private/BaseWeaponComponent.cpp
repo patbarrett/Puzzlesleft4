@@ -12,6 +12,20 @@ UBaseWeaponComponent::UBaseWeaponComponent()
 	bWantsInitializeComponent = true;
 	PrimaryComponentTick.bCanEverTick = true;
 
+	Damage = 0.0f;
+	FireRate = 0.0f;
+	TimePassed = 0.0f;
+	WeaponRange = 0.0f;
+
+	isShootable = false;
+
+	AmmoCost = 0;
+	CurrentAmmo = 0;
+	CurrentReserveAmmo = 0;
+
+	MaxCurrent = 0;
+	MaxReserve = 0;
+
 	// ...
 }
 

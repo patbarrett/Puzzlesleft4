@@ -113,16 +113,16 @@ void ApuzzleLeft4Character::OnFireP()
 
 void ApuzzleLeft4Character::OnFireT()
 {
-	//if (RifleGun->UpdateAmmo())
-	//{
-		//RifleGun->FireWeapon();
-	//}
-	//else
-	//{
-		//RifleGun->Reload();
-	//}
+	if (RifleGun->UpdateAmmo())
+	{
+		RifleGun->FireWeapon();
+	}
+	else
+	{
+		RifleGun->Reload();
+	}
 
-	FHitResult HitResult; //Hit Data
+	/*FHitResult HitResult; //Hit Data
 	FDamageEvent AttackDamageEvent;
 
 	FCollisionQueryParams QueryParams; // General Raycast
@@ -154,7 +154,7 @@ void ApuzzleLeft4Character::OnFireT()
 	else
 	{
 		UE_LOG(LogTemp, Display, TEXT("Line Trace Has Not Hit"));
-	}
+	}*/
 }
 
 void ApuzzleLeft4Character::MoveForward(float Value)
