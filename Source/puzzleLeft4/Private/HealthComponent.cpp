@@ -35,17 +35,19 @@ void UHealthComponent::TickComponent( float DeltaTime, ELevelTick TickType, FAct
 	// ...
 }
 
-void UHealthComponent::InflictDamage(float Damage)
+bool UHealthComponent::InflictDamage(float Damage)
 {
 	//Health = Damage;
 	//Health = 0.0f;
 	if (Health - Damage > 0)
 	{
 		Health -= Damage;
+		return true;
 	}
 	else
 	{
 		UE_LOG(LogTemp, Display, TEXT("This is Dead"));
+		return false;
 	}
 }
 

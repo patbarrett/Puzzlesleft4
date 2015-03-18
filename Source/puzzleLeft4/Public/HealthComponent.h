@@ -23,6 +23,6 @@ public:
 
 	float Health;
 
-	void InflictDamage(float Damage);
+	bool InflictDamage(float Damage);
 
 };
