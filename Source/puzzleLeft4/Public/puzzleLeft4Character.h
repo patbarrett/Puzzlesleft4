@@ -3,6 +3,8 @@
 
 #include "GameFramework/Character.h"
 #include "puzzleLeft4Projectile.h"
+#include "HealthComponent.h"
+#include "RifleWeaponComponent.h"
 #include "puzzleLeft4Character.generated.h"
 
 UCLASS(config=Game)
@@ -14,10 +16,10 @@ class ApuzzleLeft4Character : public ACharacter
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	class USkeletalMeshComponent* Mesh1P;
 
+	URifleWeaponComponent* RifleGun;
+
 public:
 	ApuzzleLeft4Character(const FObjectInitializer& ObjectInitializer);
-
-	float Health;
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
