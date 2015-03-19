@@ -14,8 +14,8 @@ const FName MyTraceTag("MyTraceTag");
 ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-	RifleGun = Cast<URifleWeaponComponent>(this->GetComponentByClass(URifleWeaponComponent::StaticClass()));
-
+	//RifleGun = new URifleWeaponComponent();
+	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -74,6 +74,9 @@ void ApuzzleLeft4Character::SetupPlayerInputComponent(class UInputComponent* Inp
 	//Controller OR anything with a analog joystick
 	InputComponent->BindAxis("TurnRate", this, &ApuzzleLeft4Character::TurnAtRate);
 	InputComponent->BindAxis("LookUpRate", this, &ApuzzleLeft4Character::LookUpAtRate);
+
+	RifleGun = Cast<URifleWeaponComponent>(this->GetComponentByClass(URifleWeaponComponent::StaticClass()));
+	RifleGun->MainCameraComponent = FirstPersonCameraComponent;
 }
 
 void ApuzzleLeft4Character::OnFireP()
@@ -113,14 +116,24 @@ void ApuzzleLeft4Character::OnFireP()
 
 void ApuzzleLeft4Character::OnFireT()
 {
-	if (RifleGun->UpdateAmmo())
-	{
-		RifleGun->FireWeapon();
-	}
-	else
-	{
-		RifleGun->Reload();
-	}
+	FCollisionQueryParams QueryParams; // General Raycast
+	QueryParams.TraceTag = MyTraceTag;
+
+		UE_LOG(LogTemp, Display, TEXT("Hai"));
+		if (RifleGun->UpdateAmmo())
+		{
+			RifleGun->FireWeapon();
+			GetWorld()->DebugDrawTraceTag = MyTraceTag;
+		}
+		else
+		{
+			RifleGun->Reload();
+		}
+	//}
+	//else
+	//{
+	//	UE_LOG(LogTemp, Display, TEXT("RifleGun Is A Null Pointer"));
+	//}
 
 	/*FHitResult HitResult; //Hit Data
 	FDamageEvent AttackDamageEvent;

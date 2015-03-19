@@ -8,9 +8,9 @@ URifleWeaponComponent::URifleWeaponComponent()
 	Damage = 10.0f;
 	FireRate = 1.0f;
 	TimePassed = 0.0f;
-	WeaponRange = 50.0f;
+	WeaponRange = 800.0f;
 
-	isShootable = false;
+	isShootable = true;
 
 	AmmoCost = 1;
 	CurrentAmmo = 10;
@@ -29,7 +29,10 @@ void URifleWeaponComponent::FireWeapon()
 			if (HitTarget.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()))
 			{
 				UHealthComponent* Target = Cast<UHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()));
-				Target->InflictDamage(Damage);
+				if (!Target->InflictDamage(Damage))
+				{
+					HitTarget.GetActor()->SetLifeSpan(0.0001f);
+				}
 			}
 		}
 	}

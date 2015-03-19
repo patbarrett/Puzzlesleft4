@@ -25,4 +25,6 @@ public:
 
 	bool InflictDamage(float Damage);
 
+	void UpdateHealth();
+
 };

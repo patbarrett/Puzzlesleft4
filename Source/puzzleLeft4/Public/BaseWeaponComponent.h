@@ -38,7 +38,7 @@ public:
 
 	FHitResult HitTarget; //Raycast Hit Information
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	UCameraComponent* MainCameraComponent;
 
 

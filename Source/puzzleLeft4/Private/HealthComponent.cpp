@@ -51,3 +51,8 @@ bool UHealthComponent::InflictDamage(float Damage)
 	}
 }
 
+void UHealthComponent::UpdateHealth()
+{
+
+}
+
