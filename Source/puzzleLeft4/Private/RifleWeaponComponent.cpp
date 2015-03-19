@@ -31,7 +31,14 @@ void URifleWeaponComponent::FireWeapon()
 				UHealthComponent* Target = Cast<UHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()));
 				if (!Target->InflictDamage(Damage))
 				{
-					HitTarget.GetActor()->SetLifeSpan(0.0001f);
+					if (HitTarget.GetActor()->GetComponentByClass(USkeletalMeshComponent::StaticClass()))
+					{
+						USkeletalMeshComponent* TargetMesh = Cast<USkeletalMeshComponent>(HitTarget.GetActor()->GetComponentByClass(USkeletalMeshComponent::StaticClass()));
+
+						TargetMesh->bUpdateJointsFromAnimation = true;
+					}
+
+					HitTarget.GetActor()->SetLifeSpan(5.0f);
 				}
 			}
 		}
