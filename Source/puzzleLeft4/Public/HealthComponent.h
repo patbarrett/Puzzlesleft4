@@ -23,6 +23,7 @@ public:
 
 	float Health;
 
+	UFUNCTION(BlueprintCallable, Category = "DealHealthDamage")
 	bool InflictDamage(float Damage);
 
 	void UpdateHealth();
