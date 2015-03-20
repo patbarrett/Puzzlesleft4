@@ -41,6 +41,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class UAnimMontage* FireAnimation;
 
+	UFUNCTION(BlueprintCallable, Category = "HandleDeath")
+	void OnDeath();
+
+
 protected:
 
 	//Fire a Projectile

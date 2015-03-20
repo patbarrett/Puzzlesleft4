@@ -119,55 +119,25 @@ void ApuzzleLeft4Character::OnFireT()
 	FCollisionQueryParams QueryParams; // General Raycast
 	QueryParams.TraceTag = MyTraceTag;
 
-		UE_LOG(LogTemp, Display, TEXT("Hai"));
-		if (RifleGun->UpdateAmmo())
-		{
-			RifleGun->FireWeapon();
-			GetWorld()->DebugDrawTraceTag = MyTraceTag;
-		}
-		else
-		{
-			RifleGun->Reload();
-		}
-	//}
-	//else
-	//{
-	//	UE_LOG(LogTemp, Display, TEXT("RifleGun Is A Null Pointer"));
-	//}
-
-	/*FHitResult HitResult; //Hit Data
-	FDamageEvent AttackDamageEvent;
-
-	FCollisionQueryParams QueryParams; // General Raycast
-	QueryParams.TraceTag = MyTraceTag;
-	QueryParams.AddIgnoredActor(this);
-
-	FCollisionObjectQueryParams ObjectQueryParams; // Collision Parameters
-	ObjectQueryParams.AddObjectTypesToQuery(ECollisionChannel::ECC_Pawn);
-
-	GetWorld()->DebugDrawTraceTag = MyTraceTag;
-	
-	UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-
-	if (GetWorld()->LineTraceSingle(
-		HitResult,
-		FirstPersonCameraComponent->GetComponentLocation(),
-		FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * 800,
-		QueryParams,
-		ObjectQueryParams))
+	UE_LOG(LogTemp, Display, TEXT("Hai"));
+	if (RifleGun->UpdateAmmo())
 	{
-		HitResult.GetActor()->TakeDamage(1.0f, AttackDamageEvent, GetController(), this);
-
-		if (HitResult.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()))
-		{
-			UHealthComponent* Target = Cast<UHealthComponent>(HitResult.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()));
-			Target->InflictDamage(1.0f);
-		}
+		RifleGun->FireWeapon();
+		GetWorld()->DebugDrawTraceTag = MyTraceTag;
 	}
 	else
 	{
-		UE_LOG(LogTemp, Display, TEXT("Line Trace Has Not Hit"));
-	}*/
+		RifleGun->Reload();
+	}
+}
+
+void ApuzzleLeft4Character::OnDeath()
+{
+	//Destroy Pawn Here
+	//OR whatever needs to be done upon the death of the Player
+	//On 2nd thought this probably should be put into the HealthComponent
+	//Maybe just make the current healthcomponent into  a base class
+	//Then make separate Player & Enemy HealthComponents to cater to each of their needs
 }
 
 void ApuzzleLeft4Character::MoveForward(float Value)
