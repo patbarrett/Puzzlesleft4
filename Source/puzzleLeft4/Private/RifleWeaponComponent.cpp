@@ -39,6 +39,9 @@ void URifleWeaponComponent::FireWeapon()
 					}
 
 					HitTarget.GetActor()->SetLifeSpan(5.0f);
+					HitTarget.GetComponent()->SetSimulatePhysics(true);
+					HitTarget.GetComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+					HitTarget.GetComponent()->SetCollisionObjectType(ECollisionChannel::ECC_PhysicsBody);
 				}
 			}
 		}
