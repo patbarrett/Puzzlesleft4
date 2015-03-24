@@ -23,6 +23,7 @@ public:
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
 	float Damage;
+	float ForceValue; //Force of each Bullet/Hit
 	float FireRate; //Shots PER SECOND
 	float TimePassed; //Time since last shot
 	float WeaponRange; //Length of Raycats/Range of Weapon

@@ -118,12 +118,13 @@ void ApuzzleLeft4Character::OnFireT()
 {
 	FCollisionQueryParams QueryParams; // General Raycast
 	QueryParams.TraceTag = MyTraceTag;
+	GetWorld()->DebugDrawTraceTag = MyTraceTag;
 
-	UE_LOG(LogTemp, Display, TEXT("Hai"));
+	//UE_LOG(LogTemp, Display, TEXT("Damage: %s"), RifleGun->Damage);
+
 	if (RifleGun->UpdateAmmo())
 	{
 		RifleGun->FireWeapon();
-		GetWorld()->DebugDrawTraceTag = MyTraceTag;
 	}
 	else
 	{

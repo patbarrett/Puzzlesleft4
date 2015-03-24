@@ -6,7 +6,7 @@
 #include "HealthComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS( ClassGroup=(Custom))
 class PUZZLELEFT4_API UHealthComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -21,11 +21,17 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
+	AActor* ParentObj;
+	UCapsuleComponent* ParentCapsule;
+
 	float Health;
 
-	UFUNCTION(BlueprintCallable, Category = "DealHealthDamage")
-	bool InflictDamage(float Damage);
+	void Init();
 
-	void UpdateHealth();
+	UFUNCTION(BlueprintCallable, Category = "DealHealthDamage")
+	bool InflictDamage(FVector ForceDirection, float ForceValue, float Damage);
+
+	virtual void OnDeath(FVector ForceDirection,float ForceValue)PURE_VIRTUAL(UHealthComponent OnDeath,);
+	//virtual void FireWeapon() PURE_VIRTUAL(UBaseWeaponComponent FireWeapon, );
 
 };
