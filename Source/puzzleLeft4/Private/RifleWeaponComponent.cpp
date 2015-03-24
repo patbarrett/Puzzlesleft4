@@ -13,7 +13,7 @@ URifleWeaponComponent::URifleWeaponComponent()
 	isShootable = true;
 
 	AmmoCost = 1;
-	CurrentAmmo = 10;
+	CurrentAmmo = 2;
 	CurrentReserveAmmo = 50;
 
 	MaxCurrent = 10;
@@ -42,6 +42,8 @@ void URifleWeaponComponent::FireWeapon()
 					HitTarget.GetComponent()->SetSimulatePhysics(true);
 					HitTarget.GetComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					HitTarget.GetComponent()->SetCollisionObjectType(ECollisionChannel::ECC_PhysicsBody);
+					//HitTarget.GetComponent()->AddForce(FVector(0.0f, 30.0f, 0.0f));
+					//HitTarget.GetActor()->
 					//HitTarget.GetComponent()->getm
 					//this->GetMesh()->SetSimulatePhysics(true);
 					//this->GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
