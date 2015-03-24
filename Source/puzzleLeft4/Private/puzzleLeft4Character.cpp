@@ -119,22 +119,15 @@ void ApuzzleLeft4Character::OnFireT()
 	FCollisionQueryParams QueryParams; // General Raycast
 	QueryParams.TraceTag = MyTraceTag;
 
-	
+	UE_LOG(LogTemp, Display, TEXT("Hai"));
 	if (RifleGun->UpdateAmmo())
 	{
-		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-		UE_LOG(LogTemp, Display, TEXT("Rifle Shot"));
 		RifleGun->FireWeapon();
 		GetWorld()->DebugDrawTraceTag = MyTraceTag;
 	}
 	else
 	{
-		UE_LOG(LogTemp, Display, TEXT("Rifle Empty"));
-
-		
-		this->GetCapsuleComponent()->SetSimulatePhysics(true);
-		this->GetCapsuleComponent()->AddForce(FVector(0.0f, 30.0f, 0.0f));
-		//RifleGun->Reload();
+		RifleGun->Reload();
 	}
 }
 
