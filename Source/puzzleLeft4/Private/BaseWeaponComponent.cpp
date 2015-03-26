@@ -13,6 +13,7 @@ UBaseWeaponComponent::UBaseWeaponComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	Damage = 0.0f;
+	Force = 0.0f;
 	FireRate = 0.0f;
 	TimePassed = 0.0f;
 	WeaponRange = 0.0f;

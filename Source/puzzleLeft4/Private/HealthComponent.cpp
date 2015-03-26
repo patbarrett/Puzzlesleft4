@@ -25,6 +25,8 @@ void UHealthComponent::InitializeComponent()
 	
 	// ...
 	Health = 4.0f;
+
+	ThisMesh = Cast<USkeletalMeshComponent>(this->GetOwner()->GetComponentByClass(USkeletalMeshComponent::StaticClass()));
 }
 
 // Called every frame
@@ -35,10 +37,8 @@ void UHealthComponent::TickComponent( float DeltaTime, ELevelTick TickType, FAct
 	// ...
 }
 
-bool UHealthComponent::InflictDamage(float Damage)
+bool UHealthComponent::InflictDamage(float Damage, FVector Direction, float Value)
 {
-	//Health = Damage;
-	//Health = 0.0f;
 	if (Health - Damage > 0)
 	{
 		Health -= Damage;
@@ -46,13 +46,8 @@ bool UHealthComponent::InflictDamage(float Damage)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Display, TEXT("This is Dead"));
+		OnDeath(Direction, Value);
 		return false;
 	}
-}
-
-void UHealthComponent::UpdateHealth()
-{
-
 }
 

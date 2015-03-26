@@ -44,7 +44,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "HandleDeath")
 	void OnDeath();
 
-
+	FRotator Meh;
 protected:
 
 	//Fire a Projectile

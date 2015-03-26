@@ -6,7 +6,7 @@
 #include "HealthComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS( ClassGroup=(Custom))
 class PUZZLELEFT4_API UHealthComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -22,10 +22,10 @@ public:
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
 	float Health;
+	USkeletalMeshComponent* ThisMesh;
 
 	UFUNCTION(BlueprintCallable, Category = "DealHealthDamage")
-	bool InflictDamage(float Damage);
+	bool InflictDamage(float Damage, FVector Direction, float Value);
 
-	void UpdateHealth();
-
+	virtual void OnDeath(FVector ForceDirection, float ForceValue) PURE_VIRTUAL(UHealthComponent OnDeath, );
 };
