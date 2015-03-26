@@ -6,7 +6,7 @@
 #include "HealthComponent.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS( ClassGroup=(Custom))
 class PUZZLELEFT4_API UHealthComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -24,8 +24,10 @@ public:
 	float Health;
 
 	UFUNCTION(BlueprintCallable, Category = "DealHealthDamage")
-	bool InflictDamage(float Damage);
+	virtual bool InflictDamage(float Damage);
 
 	void UpdateHealth();
+
+	//virtual void UpdateHealth() PURE_VIRTUAL (UHealthComponent UpdateHealth);
 
 };
