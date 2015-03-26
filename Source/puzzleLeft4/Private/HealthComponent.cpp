@@ -11,6 +11,10 @@ UHealthComponent::UHealthComponent()
 	// off to improve performance if you don't need them.
 	bWantsInitializeComponent = true;
 	PrimaryComponentTick.bCanEverTick = true;
+
+	
+
+	// ...
 }
 
 
@@ -18,7 +22,8 @@ UHealthComponent::UHealthComponent()
 void UHealthComponent::InitializeComponent()
 {
 	Super::InitializeComponent();
-
+	
+	// ...
 	Health = 4.0f;
 }
 
@@ -26,10 +31,14 @@ void UHealthComponent::InitializeComponent()
 void UHealthComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
+
+	// ...
 }
 
-bool UHealthComponent::InflictDamage(FVector ForceDirection, float ForceValue,float Damage)
+bool UHealthComponent::InflictDamage(float Damage)
 {
+	//Health = Damage;
+	//Health = 0.0f;
 	if (Health - Damage > 0)
 	{
 		Health -= Damage;
@@ -37,8 +46,13 @@ bool UHealthComponent::InflictDamage(FVector ForceDirection, float ForceValue,fl
 	}
 	else
 	{
-		OnDeath(ForceDirection, ForceValue);
+		UE_LOG(LogTemp, Display, TEXT("This is Dead"));
 		return false;
 	}
+}
+
+void UHealthComponent::UpdateHealth()
+{
+
 }
 

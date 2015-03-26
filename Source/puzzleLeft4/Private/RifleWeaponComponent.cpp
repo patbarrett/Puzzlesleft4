@@ -6,7 +6,6 @@
 URifleWeaponComponent::URifleWeaponComponent()
 {
 	Damage = 10.0f;
-	ForceValue = 5.0f;
 	FireRate = 1.0f;
 	TimePassed = 0.0f;
 	WeaponRange = 800.0f;
@@ -30,8 +29,7 @@ void URifleWeaponComponent::FireWeapon()
 			if (HitTarget.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()))
 			{
 				UHealthComponent* Target = Cast<UHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()));
-				
-				if (!Target->InflictDamage(MainCameraComponent->GetForwardVector(), ForceValue, Damage))
+				if (!Target->InflictDamage(Damage))
 				{
 					if (HitTarget.GetActor()->GetComponentByClass(USkeletalMeshComponent::StaticClass()))
 					{
@@ -40,12 +38,10 @@ void URifleWeaponComponent::FireWeapon()
 						TargetMesh->bUpdateJointsFromAnimation = true;
 					}
 
-					//HitTarget.GetActor()->SetLifeSpan(5.0f);
-					//HitTarget.GetComponent()->SetSimulatePhysics(true);
-					//HitTarget.GetComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-					//HitTarget.GetComponent()->SetCollisionObjectType(ECollisionChannel::ECC_PhysicsBody);
-					//HitTarget.GetComponent()->AddForce(FVector(0.0f, 50.0f, 0.0f));
-					//HitTarget.GetComponent()->SetPhysicsLinearVelocity(MainCameraComponent->GetForwardVector() * 50000.0f);
+					HitTarget.GetActor()->SetLifeSpan(5.0f);
+					HitTarget.GetComponent()->SetSimulatePhysics(true);
+					HitTarget.GetComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+					HitTarget.GetComponent()->SetCollisionObjectType(ECollisionChannel::ECC_PhysicsBody);
 					//HitTarget.GetComponent()->getm
 					//this->GetMesh()->SetSimulatePhysics(true);
 					//this->GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
