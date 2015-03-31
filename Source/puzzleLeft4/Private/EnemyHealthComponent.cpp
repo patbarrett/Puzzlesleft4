@@ -16,6 +16,11 @@ void UEnemyHealthComponent::OnDeath(FVector ForceDirection, float ForceValue)
 {
 
 	this->GetOwner()->SetLifeSpan(5.0f);
+
+	//this->GetOwner()->GetComponentByClass(UCapsuleComponent::StaticClass())-
+
+	ThisCapsule->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+
 	ThisMesh->SetSimulatePhysics(true);
 	ThisMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	ThisMesh->SetCollisionObjectType(ECollisionChannel::ECC_PhysicsBody);

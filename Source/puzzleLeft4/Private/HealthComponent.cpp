@@ -27,6 +27,7 @@ void UHealthComponent::InitializeComponent()
 	Health = 4.0f;
 
 	ThisMesh = Cast<USkeletalMeshComponent>(this->GetOwner()->GetComponentByClass(USkeletalMeshComponent::StaticClass()));
+	ThisCapsule = Cast<UCapsuleComponent>(this->GetOwner()->GetComponentByClass(UCapsuleComponent::StaticClass()));
 }
 
 // Called every frame

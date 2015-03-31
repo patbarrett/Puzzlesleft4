@@ -23,6 +23,7 @@ public:
 
 	float Health;
 	USkeletalMeshComponent* ThisMesh;
+	UCapsuleComponent* ThisCapsule;
 
 	UFUNCTION(BlueprintCallable, Category = "DealHealthDamage")
 	bool InflictDamage(float Damage, FVector Direction, float Value);
