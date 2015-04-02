@@ -21,11 +21,13 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	float Health;
+	
 	USkeletalMeshComponent* ThisMesh;
 
 	UFUNCTION(BlueprintCallable, Category = "DealHealthDamage")
-		bool InflictDamage(float Damage, FVector Direction, float Value);
+	bool InflictDamage(float Damage, FVector Direction, float Value);
 
-	virtual void OnDeath(FVector ForceDirection, float ForceValue) PURE_VIRTUAL(UHealthComponent OnDeath, );
+	virtual void OnDeath(FVector ForceDirection, float ForceValue) PURE_VIRTUAL(UBaseHealthComponent OnDeath, );
 };

@@ -42,7 +42,7 @@ public:
 	class UAnimMontage* FireAnimation;
 
 	UFUNCTION(BlueprintCallable, Category = "HandleDeath")
-		void OnDeath();
+	void OnDeath();
 
 	FRotator Meh;
 protected:

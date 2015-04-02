@@ -6,7 +6,7 @@
 URifleWeaponComponent::URifleWeaponComponent()
 {
 	Damage = 10.0f;
-	Force = 50000.0f;
+	Force = 5000.0f;
 	FireRate = 1.0f;
 	TimePassed = 0.0f;
 	WeaponRange = 800.0f;

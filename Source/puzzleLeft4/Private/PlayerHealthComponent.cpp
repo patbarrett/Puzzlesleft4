@@ -15,4 +15,10 @@ void UPlayerHealthComponent::InitializeComponent()
 void UPlayerHealthComponent::OnDeath(FVector ForceDirection, float ForceValue)
 {
 
+	UE_LOG(LogTemp, Display, TEXT("Player Was Killed"));
+	this->GetOwner()->SetLifeSpan(0.01f);
+	ThisMesh->SetSimulatePhysics(true);
+	ThisMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	ThisMesh->SetCollisionObjectType(ECollisionChannel::ECC_PhysicsBody);
+	ThisMesh->SetPhysicsLinearVelocity(ForceDirection * ForceValue);
 }

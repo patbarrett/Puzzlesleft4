@@ -41,11 +41,13 @@ bool UBaseHealthComponent::InflictDamage(float Damage, FVector Direction, float 
 {
 	if (Health - Damage > 0)
 	{
+		UE_LOG(LogTemp, Display, TEXT("Player Was Damaged"));
 		Health -= Damage;
 		return true;
 	}
 	else
 	{
+		UE_LOG(LogTemp, Display, TEXT("Player Was Damaged"));
 		OnDeath(Direction, Value);
 		return false;
 	}
