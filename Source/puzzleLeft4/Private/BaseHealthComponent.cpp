@@ -24,7 +24,6 @@ void UBaseHealthComponent::InitializeComponent()
 	Super::InitializeComponent();
 
 	// ...
-	Health = 4.0f;
 
 	ThisMesh = Cast<USkeletalMeshComponent>(this->GetOwner()->GetComponentByClass(USkeletalMeshComponent::StaticClass()));
 }
