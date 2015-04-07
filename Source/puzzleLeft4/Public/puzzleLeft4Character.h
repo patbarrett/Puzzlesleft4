@@ -3,11 +3,7 @@
 
 #include "GameFramework/Character.h"
 #include "puzzleLeft4Projectile.h"
-<<<<<<< HEAD
-#include "HealthComponent.h"
-=======
 #include "BaseHealthComponent.h"
->>>>>>> origin/Kent5.0
 #include "RifleWeaponComponent.h"
 #include "puzzleLeft4Character.generated.h"
 

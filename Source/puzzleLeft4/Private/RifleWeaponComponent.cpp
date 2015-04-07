@@ -1,15 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "puzzleLeft4.h"
+#include "BaseHealthComponent.h"
 #include "RifleWeaponComponent.h"
 
 URifleWeaponComponent::URifleWeaponComponent()
 {
 	Damage = 10.0f;
-<<<<<<< HEAD
-=======
+
 	Force = 5000.0f;
->>>>>>> origin/Kent5.0
+
 	FireRate = 1.0f;
 	TimePassed = 0.0f;
 	WeaponRange = 800.0f;
@@ -30,11 +30,10 @@ void URifleWeaponComponent::FireWeapon()
 	{
 		if (CastRay(MainCameraComponent))
 		{
-<<<<<<< HEAD
-			if (HitTarget.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()))
+			if (HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()))
 			{
-				UHealthComponent* Target = Cast<UHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()));
-				if (!Target->InflictDamage(Damage))
+				/*UBaseHealthComponent* Target = Cast<UBaseHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()));
+				if (!Target->InflictDamage(Damage, MainCameraComponent->GetForwardVector(), Force))
 				{
 					if (HitTarget.GetActor()->GetComponentByClass(USkeletalMeshComponent::StaticClass()))
 					{
@@ -47,14 +46,14 @@ void URifleWeaponComponent::FireWeapon()
 					HitTarget.GetComponent()->SetSimulatePhysics(true);
 					HitTarget.GetComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					HitTarget.GetComponent()->SetCollisionObjectType(ECollisionChannel::ECC_PhysicsBody);
-				}
-=======
-			if (HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()))
-			{
-				UBaseHealthComponent* Target = Cast<UBaseHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()));
+				}*/
+				
+				if (HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()))
+				{
+					UBaseHealthComponent* Target = Cast<UBaseHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()));
 
-				Target->InflictDamage(Damage, MainCameraComponent->GetForwardVector(), Force);
->>>>>>> origin/Kent5.0
+					Target->InflictDamage(Damage, MainCameraComponent->GetForwardVector(), Force);
+				}
 			}
 		}
 	}

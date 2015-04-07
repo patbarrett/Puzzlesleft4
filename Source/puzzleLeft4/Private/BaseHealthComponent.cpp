@@ -3,7 +3,6 @@
 #include "puzzleLeft4.h"
 #include "BaseHealthComponent.h"
 
-
 // Sets default values for this component's properties
 UBaseHealthComponent::UBaseHealthComponent()
 {
@@ -46,7 +45,7 @@ bool UBaseHealthComponent::InflictDamage(float Damage, FVector Direction, float 
 	}
 	else
 	{
-		UE_LOG(LogTemp, Display, TEXT("Player Was Damaged"));
+		UE_LOG(LogTemp, Display, TEXT("Player Was Killed"));
 		OnDeath(Direction, Value);
 		return false;
 	}

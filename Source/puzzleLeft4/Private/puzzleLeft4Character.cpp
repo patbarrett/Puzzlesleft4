@@ -15,11 +15,7 @@ ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectIni
 	: Super(ObjectInitializer)
 {
 	//RifleGun = new URifleWeaponComponent();
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> origin/Kent5.0
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -44,11 +40,8 @@ ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectIni
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
 
-<<<<<<< HEAD
-=======
 	Meh = FRotator(50.0f, 0.0f, 0.0f);
 
->>>>>>> origin/Kent5.0
 	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P are set in the
 	// derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
@@ -65,11 +58,7 @@ void ApuzzleLeft4Character::SetupPlayerInputComponent(class UInputComponent* Inp
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	//InputComponent->BindAction("Reload", IE_Pressed, this, &ApuzzleLeft4Character::Reload);
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> origin/Kent5.0
 	//Fire Projectile
 	//InputComponent->BindAction("Fire", IE_Pressed, this, &ApuzzleLeft4Character::OnFireP);
 
@@ -129,61 +118,6 @@ void ApuzzleLeft4Character::OnFireP()
 
 void ApuzzleLeft4Character::OnFireT()
 {
-<<<<<<< HEAD
-	FCollisionQueryParams QueryParams; // General Raycast
-	QueryParams.TraceTag = MyTraceTag;
-
-		UE_LOG(LogTemp, Display, TEXT("Hai"));
-		if (RifleGun->UpdateAmmo())
-		{
-			RifleGun->FireWeapon();
-			GetWorld()->DebugDrawTraceTag = MyTraceTag;
-		}
-		else
-		{
-			RifleGun->Reload();
-		}
-	//}
-	//else
-	//{
-	//	UE_LOG(LogTemp, Display, TEXT("RifleGun Is A Null Pointer"));
-	//}
-
-	/*FHitResult HitResult; //Hit Data
-	FDamageEvent AttackDamageEvent;
-
-	FCollisionQueryParams QueryParams; // General Raycast
-	QueryParams.TraceTag = MyTraceTag;
-	QueryParams.AddIgnoredActor(this);
-
-	FCollisionObjectQueryParams ObjectQueryParams; // Collision Parameters
-	ObjectQueryParams.AddObjectTypesToQuery(ECollisionChannel::ECC_Pawn);
-
-	GetWorld()->DebugDrawTraceTag = MyTraceTag;
-	
-	UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-
-	if (GetWorld()->LineTraceSingle(
-		HitResult,
-		FirstPersonCameraComponent->GetComponentLocation(),
-		FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * 800,
-		QueryParams,
-		ObjectQueryParams))
-	{
-		HitResult.GetActor()->TakeDamage(1.0f, AttackDamageEvent, GetController(), this);
-
-		if (HitResult.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()))
-		{
-			UHealthComponent* Target = Cast<UHealthComponent>(HitResult.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()));
-			Target->InflictDamage(1.0f);
-		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Display, TEXT("Line Trace Has Not Hit"));
-	}*/
-=======
-
 	FCollisionQueryParams QueryParams; // General Raycast
 	QueryParams.TraceTag = MyTraceTag;
 
@@ -209,7 +143,6 @@ void ApuzzleLeft4Character::OnDeath()
 	//On 2nd thought this probably should be put into the HealthComponent
 	//Maybe just make the current healthcomponent into  a base class
 	//Then make separate Player & Enemy HealthComponents to cater to each of their needs
->>>>>>> origin/Kent5.0
 }
 
 void ApuzzleLeft4Character::MoveForward(float Value)
