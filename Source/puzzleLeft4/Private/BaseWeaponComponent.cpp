@@ -13,10 +13,6 @@ UBaseWeaponComponent::UBaseWeaponComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	Damage = 0.0f;
-<<<<<<< HEAD
-=======
-	Force = 0.0f;
->>>>>>> origin/Kent5.0
 	FireRate = 0.0f;
 	TimePassed = 0.0f;
 	WeaponRange = 0.0f;
@@ -40,24 +36,14 @@ void UBaseWeaponComponent::InitializeComponent()
 	Super::InitializeComponent();
 
 	// ...
-<<<<<<< HEAD
 	
-=======
-
->>>>>>> origin/Kent5.0
 }
 
 
 // Called every frame
-<<<<<<< HEAD
 void UBaseWeaponComponent::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
-=======
-void UBaseWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
->>>>>>> origin/Kent5.0
 
 	// ...
 }
