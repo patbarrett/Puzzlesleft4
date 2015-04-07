@@ -15,7 +15,11 @@ ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectIni
 	: Super(ObjectInitializer)
 {
 	//RifleGun = new URifleWeaponComponent();
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> origin/Kent5.0
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -40,6 +44,11 @@ ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectIni
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
 
+<<<<<<< HEAD
+=======
+	Meh = FRotator(50.0f, 0.0f, 0.0f);
+
+>>>>>>> origin/Kent5.0
 	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P are set in the
 	// derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
@@ -56,7 +65,11 @@ void ApuzzleLeft4Character::SetupPlayerInputComponent(class UInputComponent* Inp
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	//InputComponent->BindAction("Reload", IE_Pressed, this, &ApuzzleLeft4Character::Reload);
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> origin/Kent5.0
 	//Fire Projectile
 	//InputComponent->BindAction("Fire", IE_Pressed, this, &ApuzzleLeft4Character::OnFireP);
 
@@ -66,7 +79,7 @@ void ApuzzleLeft4Character::SetupPlayerInputComponent(class UInputComponent* Inp
 	//Horizontal & Vertical Movement
 	InputComponent->BindAxis("MoveForward", this, &ApuzzleLeft4Character::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &ApuzzleLeft4Character::MoveRight);
-	
+
 	//Mouse OR anything that provides an absolute delta
 	InputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 	InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
@@ -103,11 +116,11 @@ void ApuzzleLeft4Character::OnFireP()
 	}
 
 	// try and play a firing animation if specified
-	if(FireAnimation != NULL)
+	if (FireAnimation != NULL)
 	{
 		// Get the animation object for the arms mesh
 		UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
-		if(AnimInstance != NULL)
+		if (AnimInstance != NULL)
 		{
 			AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
@@ -116,6 +129,7 @@ void ApuzzleLeft4Character::OnFireP()
 
 void ApuzzleLeft4Character::OnFireT()
 {
+<<<<<<< HEAD
 	FCollisionQueryParams QueryParams; // General Raycast
 	QueryParams.TraceTag = MyTraceTag;
 
@@ -168,6 +182,34 @@ void ApuzzleLeft4Character::OnFireT()
 	{
 		UE_LOG(LogTemp, Display, TEXT("Line Trace Has Not Hit"));
 	}*/
+=======
+
+	FCollisionQueryParams QueryParams; // General Raycast
+	QueryParams.TraceTag = MyTraceTag;
+
+	UE_LOG(LogTemp, Display, TEXT("Hai"));
+	if (RifleGun->UpdateAmmo())
+	{
+		RifleGun->FireWeapon();
+		//FirstPersonCameraComponent->SetRelativeRotation()
+		FirstPersonCameraComponent->SetRelativeRotation(Meh);
+		GetWorld()->DebugDrawTraceTag = MyTraceTag;
+		Meh.Pitch += 50.0f;
+	}
+	else
+	{
+		RifleGun->Reload();
+	}
+}
+
+void ApuzzleLeft4Character::OnDeath()
+{
+	//Destroy Pawn Here
+	//OR whatever needs to be done upon the death of the Player
+	//On 2nd thought this probably should be put into the HealthComponent
+	//Maybe just make the current healthcomponent into  a base class
+	//Then make separate Player & Enemy HealthComponents to cater to each of their needs
+>>>>>>> origin/Kent5.0
 }
 
 void ApuzzleLeft4Character::MoveForward(float Value)
@@ -175,7 +217,7 @@ void ApuzzleLeft4Character::MoveForward(float Value)
 	if (Value != 0.0f)
 	{
 		// add movement in that direction
-		AddMovementInput(GetActorForwardVector(), Value);
+		AddMovementInput(GetActorForwardVector(), Value/2);
 	}
 }
 
@@ -184,7 +226,7 @@ void ApuzzleLeft4Character::MoveRight(float Value)
 	if (Value != 0.0f)
 	{
 		// add movement in that direction
-		AddMovementInput(GetActorRightVector(), Value);
+		AddMovementInput(GetActorRightVector(), Value/2);
 	}
 }
 
