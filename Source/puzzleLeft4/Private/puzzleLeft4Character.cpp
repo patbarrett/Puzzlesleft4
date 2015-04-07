@@ -151,7 +151,7 @@ void ApuzzleLeft4Character::MoveForward(float Value)
 	if (Value != 0.0f)
 	{
 		// add movement in that direction
-		AddMovementInput(GetActorForwardVector(), Value);
+		AddMovementInput(GetActorForwardVector(), Value/2);
 	}
 }
 
@@ -160,7 +160,7 @@ void ApuzzleLeft4Character::MoveRight(float Value)
 	if (Value != 0.0f)
 	{
 		// add movement in that direction
-		AddMovementInput(GetActorRightVector(), Value);
+		AddMovementInput(GetActorRightVector(), Value/2);
 	}
 }
 
