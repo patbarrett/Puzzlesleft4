@@ -6,6 +6,10 @@
 URifleWeaponComponent::URifleWeaponComponent()
 {
 	Damage = 10.0f;
+<<<<<<< HEAD
+=======
+	Force = 5000.0f;
+>>>>>>> origin/Kent5.0
 	FireRate = 1.0f;
 	TimePassed = 0.0f;
 	WeaponRange = 800.0f;
@@ -26,6 +30,7 @@ void URifleWeaponComponent::FireWeapon()
 	{
 		if (CastRay(MainCameraComponent))
 		{
+<<<<<<< HEAD
 			if (HitTarget.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()))
 			{
 				UHealthComponent* Target = Cast<UHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UHealthComponent::StaticClass()));
@@ -43,6 +48,13 @@ void URifleWeaponComponent::FireWeapon()
 					HitTarget.GetComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 					HitTarget.GetComponent()->SetCollisionObjectType(ECollisionChannel::ECC_PhysicsBody);
 				}
+=======
+			if (HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()))
+			{
+				UBaseHealthComponent* Target = Cast<UBaseHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()));
+
+				Target->InflictDamage(Damage, MainCameraComponent->GetForwardVector(), Force);
+>>>>>>> origin/Kent5.0
 			}
 		}
 	}
