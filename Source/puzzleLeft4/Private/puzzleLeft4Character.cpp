@@ -132,7 +132,7 @@ void ApuzzleLeft4Character::OnFireT()
 	}
 	else
 	{
-		RifleGun->Reload();
+		//RifleGun->Reload();
 	}
 }
 

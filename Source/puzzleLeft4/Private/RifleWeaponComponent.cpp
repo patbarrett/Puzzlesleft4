@@ -32,28 +32,9 @@ void URifleWeaponComponent::FireWeapon()
 		{
 			if (HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()))
 			{
-				/*UBaseHealthComponent* Target = Cast<UBaseHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()));
-				if (!Target->InflictDamage(Damage, MainCameraComponent->GetForwardVector(), Force))
-				{
-					if (HitTarget.GetActor()->GetComponentByClass(USkeletalMeshComponent::StaticClass()))
-					{
-						USkeletalMeshComponent* TargetMesh = Cast<USkeletalMeshComponent>(HitTarget.GetActor()->GetComponentByClass(USkeletalMeshComponent::StaticClass()));
+				UBaseHealthComponent* Target = Cast<UBaseHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()));
 
-						TargetMesh->bUpdateJointsFromAnimation = true;
-					}
-
-					HitTarget.GetActor()->SetLifeSpan(5.0f);
-					HitTarget.GetComponent()->SetSimulatePhysics(true);
-					HitTarget.GetComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-					HitTarget.GetComponent()->SetCollisionObjectType(ECollisionChannel::ECC_PhysicsBody);
-				}*/
-				
-				if (HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()))
-				{
-					UBaseHealthComponent* Target = Cast<UBaseHealthComponent>(HitTarget.GetActor()->GetComponentByClass(UBaseHealthComponent::StaticClass()));
-
-					Target->InflictDamage(Damage, MainCameraComponent->GetForwardVector(), Force);
-				}
+				Target->InflictDamage(Damage, MainCameraComponent->GetForwardVector(), Force);
 			}
 		}
 	}
