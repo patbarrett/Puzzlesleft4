@@ -12,25 +12,18 @@ ApuzzleLeft4HUD::ApuzzleLeft4HUD(const FObjectInitializer& ObjectInitializer) : 
 {
 	// Set the crosshair texture
 	static ConstructorHelpers::FObjectFinder<UTexture2D> CrosshiarTexObj(TEXT("/Game/Textures/Crosshair"));
-	//static ConstructorHelpers::FObjectFinder<UTexture2D> TexPath(TEXT("/Game/Textures/GreenTexture"));
 
 	CrosshairTex = CrosshiarTexObj.Object;
-	//HealthBarTexture = TexPath.Object;
 }
 
 void ApuzzleLeft4HUD::BeginPlay()
 {
-	//SAssignNew(PlayerWidget, SPlayerHealthWidget).OwnerHUD(this);
-
-
+	
 }
 
 void ApuzzleLeft4HUD::DrawHUD()
 {
 	Super::DrawHUD();
-
-
-	DrawHealthBar();
 
 	// Draw very simple crosshair
 
@@ -47,8 +40,4 @@ void ApuzzleLeft4HUD::DrawHUD()
 	Canvas->DrawItem( TileItem );
 }
 
-void ApuzzleLeft4HUD::DrawHealthBar()
-{
-	//FCanvasIcon HealthBarIcon = FCanvasIcon::MakeIcon()
-}
 

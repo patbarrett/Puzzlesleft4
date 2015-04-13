@@ -15,16 +15,7 @@ public:
 	virtual void DrawHUD() override;
 	void BeginPlay();
 
-	TSharedPtr<class SPlayerHealthWidget> PlayerWidget;
-
-	UPROPERTY()
-	class UTexture2D* HealthBarTexture;
-
 private:
-	
-	void DrawHealthBar();
-//	UTexture2D* HealthBarTexture;
-
 
 	/** Crosshair asset pointer */
 	class UTexture2D* CrosshairTex;
