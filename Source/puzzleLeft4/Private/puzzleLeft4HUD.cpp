@@ -5,6 +5,7 @@
 #include "Engine/Canvas.h"
 #include "TextureResource.h"
 #include "CanvasItem.h"
+#include "SPlayerHealthWidget.h"
 
 ApuzzleLeft4HUD::ApuzzleLeft4HUD(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -13,6 +14,10 @@ ApuzzleLeft4HUD::ApuzzleLeft4HUD(const FObjectInitializer& ObjectInitializer) : 
 	CrosshairTex = CrosshiarTexObj.Object;
 }
 
+void ApuzzleLeft4HUD::BeginPlay()
+{
+	SAssignNew(PlayerWidget, SPlayerHealthWidget).OwnerHUD(this);
+}
 
 void ApuzzleLeft4HUD::DrawHUD()
 {

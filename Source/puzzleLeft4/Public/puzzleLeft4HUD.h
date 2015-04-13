@@ -13,6 +13,9 @@ public:
 
 	/** Primary draw call for the HUD */
 	virtual void DrawHUD() override;
+	void BeginPlay();
+
+	TSharedPtr<class SPlayerHealthWidget> PlayerWidget;
 
 private:
 	/** Crosshair asset pointer */
