@@ -23,25 +23,33 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	float Damage;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	float Force;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	float FireRate; //Shots PER SECOND
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	float TimePassed; //Time since last shot
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	float WeaponRange; //Length of Raycats/Range of Weapon
 
 	bool isShootable; //Can I Shoot?
 
-	int AmmoCost; //Ammo Cost Per Shot
-	int CurrentAmmo; //Current Ammo in Clip/Magazine
-	int CurrentReserveAmmo; //Current Reserve Ammo for Reloading
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	float AmmoCost; //Ammo Cost Per Shot
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	float CurrentAmmo; //Current Ammo in Clip/Magazine
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	float CurrentReserveAmmo; //Current Reserve Ammo for Reloading
 
-	int MaxCurrent; //Maximum Ammo in Clip/Magazine
-	int MaxReserve; //Maximum Reserve Ammo for Reloading
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	float MaxCurrent; //Maximum Ammo in Clip/Magazine
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	float MaxReserve; //Maximum Reserve Ammo for Reloading
 
 	FHitResult HitTarget; //Raycast Hit Information
 
 	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	UCameraComponent* MainCameraComponent;
-
 
 	bool CastRay(UCameraComponent* MainCam);
 	bool UpdateAmmo();

@@ -6,6 +6,6 @@ public class puzzleLeft4 : ModuleRules
 {
 	public puzzleLeft4(TargetInfo Target)
 	{
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Slate", "SlateCore" });
 	}
 }

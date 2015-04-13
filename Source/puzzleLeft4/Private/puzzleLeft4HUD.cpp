@@ -5,14 +5,21 @@
 #include "Engine/Canvas.h"
 #include "TextureResource.h"
 #include "CanvasItem.h"
+#include "SPlayerHealthWidget.h"
+#include "Engine/Canvas.h"
 
 ApuzzleLeft4HUD::ApuzzleLeft4HUD(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	// Set the crosshair texture
 	static ConstructorHelpers::FObjectFinder<UTexture2D> CrosshiarTexObj(TEXT("/Game/Textures/Crosshair"));
+
 	CrosshairTex = CrosshiarTexObj.Object;
 }
 
+void ApuzzleLeft4HUD::BeginPlay()
+{
+	
+}
 
 void ApuzzleLeft4HUD::DrawHUD()
 {
@@ -32,4 +39,5 @@ void ApuzzleLeft4HUD::DrawHUD()
 	TileItem.BlendMode = SE_BLEND_Translucent;
 	Canvas->DrawItem( TileItem );
 }
+
 

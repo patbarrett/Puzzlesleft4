@@ -127,6 +127,9 @@ void ApuzzleLeft4Character::OnFireT()
 		RifleGun->FireWeapon();
 		//FirstPersonCameraComponent->SetRelativeRotation()
 		FirstPersonCameraComponent->SetRelativeRotation(Meh);
+
+		AddControllerPitchInput(-360 * GetWorld()->GetDeltaSeconds());
+
 		GetWorld()->DebugDrawTraceTag = MyTraceTag;
 		Meh.Pitch += 50.0f;
 	}
