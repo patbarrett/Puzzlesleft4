@@ -14,10 +14,11 @@ void UEnemyHealthComponent::InitializeComponent()
 
 void UEnemyHealthComponent::OnDeath(FVector ForceDirection, float ForceValue)
 {
-
-	this->GetOwner()->SetLifeSpan(1.0f);
-
-	this->GetOwner()->GetComponentByClass(UCapsuleComponent::StaticClass())->DestroyComponent(false);
+	if (this->GetOwner()->GetComponentByClass(UCapsuleComponent::StaticClass()))
+	{
+		this->GetOwner()->SetLifeSpan(1.0f);
+		this->GetOwner()->GetComponentByClass(UCapsuleComponent::StaticClass())->DestroyComponent(false);
+	}
 
 	ThisMesh->SetSimulatePhysics(true);
 	ThisMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
