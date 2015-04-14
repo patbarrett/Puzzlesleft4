@@ -40,8 +40,6 @@ ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectIni
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
 
-	Meh = FRotator(50.0f, 0.0f, 0.0f);
-
 	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P are set in the
 	// derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
@@ -125,13 +123,10 @@ void ApuzzleLeft4Character::OnFireT()
 	if (RifleGun->UpdateAmmo())
 	{
 		RifleGun->FireWeapon();
-		//FirstPersonCameraComponent->SetRelativeRotation()
-		FirstPersonCameraComponent->SetRelativeRotation(Meh);
 
-		AddControllerPitchInput(-360 * GetWorld()->GetDeltaSeconds());
+		AddControllerPitchInput(-RifleGun->Recoil * GetWorld()->GetDeltaSeconds());
 
 		GetWorld()->DebugDrawTraceTag = MyTraceTag;
-		Meh.Pitch += 50.0f;
 	}
 	else
 	{

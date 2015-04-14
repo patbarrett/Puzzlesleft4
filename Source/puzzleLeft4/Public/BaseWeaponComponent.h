@@ -31,6 +31,9 @@ public:
 	float TimePassed; //Time since last shot
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	float WeaponRange; //Length of Raycats/Range of Weapon
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	float Recoil;
+
 
 	bool isShootable; //Can I Shoot?
 

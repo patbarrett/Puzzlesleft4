@@ -14,6 +14,8 @@ URifleWeaponComponent::URifleWeaponComponent()
 	TimePassed = 0.0f;
 	WeaponRange = 800.0f;
 
+	Recoil = 10;
+
 	isShootable = true;
 
 	AmmoCost = 1;
