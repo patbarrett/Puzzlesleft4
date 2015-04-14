@@ -11,6 +11,7 @@ class PUZZLELEFT4_API UPlayerHealthComponent : public UBaseHealthComponent
 
 public:
 	UPlayerHealthComponent();
+	
 	virtual void InitializeComponent() override;
 	virtual void OnDeath(FVector ForceDirection, float ForceValue) override;
 
