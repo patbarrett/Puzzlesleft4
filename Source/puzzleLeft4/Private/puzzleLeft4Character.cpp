@@ -9,8 +9,6 @@
 // ApuzzleLeft4Character//
 //////////////////////////
 
-const FName MyTraceTag("MyTraceTag");
-
 ApuzzleLeft4Character::ApuzzleLeft4Character(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
@@ -117,16 +115,12 @@ void ApuzzleLeft4Character::OnFireP()
 void ApuzzleLeft4Character::OnFireT()
 {
 	FCollisionQueryParams QueryParams; // General Raycast
-	QueryParams.TraceTag = MyTraceTag;
 
-	UE_LOG(LogTemp, Display, TEXT("Hai"));
 	if (RifleGun->UpdateAmmo())
 	{
 		RifleGun->FireWeapon();
 
 		AddControllerPitchInput(-RifleGun->Recoil * GetWorld()->GetDeltaSeconds());
-
-		GetWorld()->DebugDrawTraceTag = MyTraceTag;
 	}
 	else
 	{

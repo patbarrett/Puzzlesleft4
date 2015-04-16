@@ -49,26 +49,13 @@ void UBaseWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 }
 
-/*
-if (GetWorld()->LineTraceSingle(
-HitResult,
-FirstPersonCameraComponent->GetComponentLocation(),
-FirstPersonCameraComponent->GetComponentLocation() + FirstPersonCameraComponent->GetForwardVector() * 800,
-QueryParams,
-ObjectQueryParams))
-{
-*/
-
 bool UBaseWeaponComponent::CastRay(UCameraComponent* MainCam)
 {
 	FCollisionQueryParams QueryParams; // General Raycast
-	//QueryParams.TraceTag = MyTraceTag;
 	QueryParams.AddIgnoredActor(this->GetOwner());
 
 	FCollisionObjectQueryParams ObjectQueryParams; // Collision Parameters
 	ObjectQueryParams.AddObjectTypesToQuery(ECollisionChannel::ECC_Pawn);
-
-	//GetWorld()->DebugDrawTraceTag = MyTraceTag;
 
 	if (GetWorld()->LineTraceSingle(
 		HitTarget,

@@ -14,7 +14,6 @@ public:
 	// Sets default values for this component's properties
 	UBaseWeaponComponent();
 
-
 	// Called when the game starts
 	virtual void InitializeComponent() override;
 
